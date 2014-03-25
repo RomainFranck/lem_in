@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 11:09:02 2014 Romain Franck
-** Last update Tue Mar 25 22:37:45 2014 Galleg_a
+** Last update Tue Mar 25 22:51:15 2014 Galleg_a
 */
 
 #ifndef NODES_H_
@@ -15,7 +15,7 @@ typedef struct	s_node
 {
   struct s_node	*prev;
   char		*name;
-  //int		dist;
+  int		weight; //Poids de la node
   char		full;
   struct s_node	*links;
   struct s_node	*next;

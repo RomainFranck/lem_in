@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Tue Mar 25 22:38:03 2014 Galleg_a
+** Last update Tue Mar 25 22:51:17 2014 Galleg_a
 */
 
 #include <stdio.h>
@@ -18,14 +18,14 @@ void	comment(t_sen *farm, char *line)
 
   if (my_strncmp(line, "##start", 7))
     {
-      if ((line = getnextline) != 0)
+      if ((line = getnextline(1)) != 0)
 	add_node_to_list(farm);
       //farm first = cet elem
       free(line);
     }
   else if (my_strncmp(line, "##end", 5))
     {
-      if ((line = getnextline) != 0)
+      if ((line = getnextline(1)) != 0)
 	add_node_to_list(farm);
       //farm last = cet elem
       free(line);
