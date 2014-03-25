@@ -17,9 +17,9 @@ OBJ =		$(SRC:.c=.o)
 
 NAME =		lem_in
 
-CC =		gcc
+CC =		clang
 
-CFLAGS =	-Wall -Werror -Wextra -pedantic -ansi -g
+CFLAGS =	-Wall -Werror -Wextra -pedantic -g
 
 all: $(NAME)
 

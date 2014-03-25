@@ -12,6 +12,8 @@
 #define LEMIN_H_
 
 char	*my_strdup(char *, int);
+char	scat(char *, char);
+char	*getnextline(int);
 int	my_strlen(char *, int);
 int	my_strcmp(char *, char *);
 t_nd	*nd_init(char *, char);
