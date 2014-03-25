@@ -1,0 +1,24 @@
+void backtrack(t_nd *room; t_nd parcourus[])
+{
+int	i;
+
+parcourus[last + 1] = room;
+if (room == end)
+{
+	i = 0;
+	while(parcourus[i])
+	{
+		parcourus[i]->dist = MIN(parcourus[i]->dist, i);
+		i++;
+	}
+}
+i = 0;
+while (room->tab[i])
+{
+	if (room->tab[i] != nd_tab_find(parcourus, room->tab[i]->name))
+	   bactrack(room->tab[i]);
+	i++;
+}
+parcourus[last + 1] = NULL;
+return ;
+}
