@@ -22,6 +22,7 @@ t_nd	*nd_init(char *name, char type)
   nd->type = type;
   nd->dist = -1;
   nd->path = NULL;
+  nd->prev = NULL;
   nd->next = NULL;
   return (nd);
 }
@@ -39,6 +40,7 @@ t_nd	*nd_add(t_nd *f, char *name, char type)
   nd->path = NULL;
   nd->next = NULL;
   ptr = f;
+  nd->prev = ptr;
   while (ptr->next != NULL)
     ptr = ptr->next;
   ptr->next = nd;
