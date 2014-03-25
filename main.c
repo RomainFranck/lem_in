@@ -5,28 +5,63 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** ##Last update Tue Mar 25 16:41:42 2014 Romain Franck
+** Last update Tue Mar 25 22:38:03 2014 Galleg_a
 */
 
 #include <stdio.h>
 #include "nodes.h"
 #include "lemin.h"
 
-t_nd	*parse()
+void	comment(t_sen *farm, char *line)
 {
-  char	*a;
-  t_nd	*nd;
+  char	*line;
 
-  a = getnextline(0);
-  nd = nd_init(a, 0);
-  return (nd);
+  if (my_strncmp(line, "##start", 7))
+    {
+      if ((line = getnextline) != 0)
+	add_node_to_list(farm);
+      //farm first = cet elem
+      free(line);
+    }
+  else if (my_strncmp(line, "##end", 5))
+    {
+      if ((line = getnextline) != 0)
+	add_node_to_list(farm);
+      //farm last = cet elem
+      free(line);
+    }
+}
+
+int	create_node_list(t_sen *farm)
+{
+  int	kill;
+  char	*line;
+
+  kill = 1;
+  if ((line = getnextline(1)) != 0)
+    farm->ants = atoi(line); //GETNBR
+  free(line);
+  while (kill && (line = getnextline(1)) != 0)
+    {
+      if (line[0] == '#')
+	comment(farm, line);
+      else
+	{
+	  if (/*ligne ne contient pas 3 elements*/)
+	    kill = 0;
+	  else
+	    add_node_to_list(farm);
+	}
+      free(line);
+    }
+  while ((line = getnextline(1)) != 0)
+    free(line); //gestion des liaisons
+  return (0);
 }
 
 int	main()
 {
-  t_nd	*nd;
+  t_sen	farm;
 
-  nd = parse();
-  puts(nd->name);
-  return (0);
+  create_node_list(&farm);
 }
