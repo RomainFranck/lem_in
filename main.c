@@ -5,41 +5,40 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Tue Mar 25 22:51:17 2014 Galleg_a
+** Last update Wed Mar 26 02:13:59 2014 Galleg_a
 */
 
-#include <stdio.h>
-#include "nodes.h"
+#include <stdlib.h>
 #include "lemin.h"
 
-void	comment(t_sen *farm, char *line)
+void	comment(t_frm *farm, char *line)
 {
-  char	*line;
+  char	*data;
 
   if (my_strncmp(line, "##start", 7))
     {
-      if ((line = getnextline(1)) != 0)
-	add_node_to_list(farm);
-      //farm first = cet elem
       free(line);
+      if ((data = getnextline(1)) != 0)
+	add_node_to_list(farm, 1, data);
+      free(data);
     }
   else if (my_strncmp(line, "##end", 5))
     {
-      if ((line = getnextline(1)) != 0)
-	add_node_to_list(farm);
-      //farm last = cet elem
       free(line);
+      if ((data = getnextline(1)) != 0)
+	add_node_to_list(farm, 2, data);
+      free(data);
     }
 }
 
-int	create_node_list(t_sen *farm)
+int	create_node_list(t_frm *farm)
 {
   int	kill;
   char	*line;
 
   kill = 1;
   if ((line = getnextline(1)) != 0)
-    farm->ants = atoi(line); //GETNBR
+    farm->ants = my_getnbr(line);
   free(line);
   while (kill && (line = getnextline(1)) != 0)
     {
@@ -47,21 +46,22 @@ int	create_node_list(t_sen *farm)
 	comment(farm, line);
       else
 	{
-	  if (/*ligne ne contient pas 3 elements*/)
+	  if (0/*ligne ne contient pas 3 elements*/)
 	    kill = 0;
 	  else
-	    add_node_to_list(farm);
+	    add_node_to_list(farm, 0, line);
 	}
       free(line);
     }
   while ((line = getnextline(1)) != 0)
-    free(line); //gestion des liaisons
+    free(line); /*gestion des liaisons*/
   return (0);
 }
 
 int	main()
 {
-  t_sen	farm;
+  t_frm	farm;
 
   create_node_list(&farm);
+  return (0);
 }
