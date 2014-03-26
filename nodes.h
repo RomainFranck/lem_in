@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 11:09:02 2014 Romain Franck
-** Last update Wed Mar 26 02:12:02 2014 Galleg_a
+** Last update Wed Mar 26 03:20:52 2014 Galleg_a
 */
 
 #ifndef NODES_H_
@@ -27,7 +27,7 @@ typedef struct	s_farm_sen
   t_nd		*exit;
   t_nd		*first;
   t_nd		*last;
-  int		size;
+  unsigned	size;
   int		ants;
 } t_frm;
 

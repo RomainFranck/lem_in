@@ -5,9 +5,10 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Wed Mar 26 02:58:32 2014 Galleg_a
+** Last update Wed Mar 26 03:20:36 2014 Galleg_a
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "lemin.h"
 
@@ -29,7 +30,10 @@ void	add_valid_node(t_frm *farm, char *line, int *kill, int type)
   if (valid_node_input(line))
     add_node_to_list(farm, type, line);
   else
-    *kill = 0;
+    {
+      printf("Invalid room definition : (usage)-->[NAME X_POS Y_POS]\n"); /*my_printf*/
+      *kill = 0;
+    }
 }
 
 void	comment(t_frm *farm, char *line, int *kill)
@@ -59,7 +63,8 @@ int	create_node_list(t_frm *farm)
 
   kill = 1;
   if ((line = getnextline(1)) != 0)
-    farm->ants = my_getnbr(line);
+    if ((farm->ants = my_getnbr(line)) < 1)
+      return (printf("Ant number must be > 0 (input : %d)\n", farm->ants));
   free(line);
   while (kill && (line = getnextline(1)) != 0)
     {
@@ -69,7 +74,7 @@ int	create_node_list(t_frm *farm)
 	add_valid_node(farm, line, &kill, 0);
       free(line);
     }
-  while (my_strcmp(line, "")/*(line = getnextline(1)) != 0*/)
+  while (0/*(line = getnextline(1)) != 0*/)
     free(line); /*gestion des liaisons*/
   return (0);
 }
