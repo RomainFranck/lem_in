@@ -8,17 +8,18 @@
 ** Last update Tue Mar 25 22:15:52 2014 Romain Franck
 */
 
+#include <stdlib.h>
 #include "lemin.h"
 #include "nodes.h"
 
-void	bactrack(t_sen *sen, t_nd *room, t_pn *list)
+void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
 {
   t_pth	*ptr;
   t_pth a;
   int	i;
 
-  a.nd = room;
-  list->last->next = a;
+  a.node = room;
+  list->last->next = &a;
   list->last = NULL;
   if (sen->last == room)
     {
@@ -26,15 +27,15 @@ void	bactrack(t_sen *sen, t_nd *room, t_pn *list)
       i = 0;
       while (ptr != list->first)
 	{
-	  ptr->nd->dist = MIN(ptr->nd->dist, i++);
+	  ptr->node->weight = MIN(ptr->node->weight, i++);
 	  ptr = ptr->prev;
 	}
     }
   i = 0;
-  while (room->tab[i] != NULL)
+  while (room->links[i] != NULL)
     {
-      if (!pth_find(list, room->tab[i]))
-	bactrack(room->tab[i]);
+      if (!pth_find(list, room->links[i]))
+	bactrack(room->links[i]);
       i++;
     }
   return ;
