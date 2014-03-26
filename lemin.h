@@ -15,7 +15,9 @@ char	*getnextline(int fd);
 /*----------------------------------------*/
 
 /*-------------[main.c]------------*/
-void	comment(t_frm *farm, char *line);
+int	valid_node_input(char *line);
+void	add_valid_node(t_frm *farm, char *line, int *kill, int type);
+void	comment(t_frm *farm, char *line, int *kill);
 int	create_node_list(t_frm *farm);
 int	main();
 /*---------------------------------*/
