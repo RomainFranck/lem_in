@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 11:09:02 2014 Romain Franck
-** Last update Tue Mar 25 22:37:45 2014 Galleg_a
+** Last update Wed Mar 26 03:20:52 2014 Galleg_a
 */
 
 #ifndef NODES_H_
@@ -15,7 +15,7 @@ typedef struct	s_node
 {
   struct s_node	*prev;
   char		*name;
-  //int		dist;
+  int		weight; /*Poids de la node*/
   char		full;
   struct s_node	*links;
   struct s_node	*next;
@@ -23,17 +23,19 @@ typedef struct	s_node
 
 typedef struct	s_farm_sen
 {
-  t_nd		*enter;
+  t_nd		*start;
   t_nd		*exit;
-  int		size;
+  t_nd		*first;
+  t_nd		*last;
+  unsigned	size;
   int		ants;
 } t_frm;
 
 typedef struct	s_path
 {
-  struct s_path	prev;
+  struct s_path	*prev;
   t_nd		*node;
-  struct s_path	next;
+  struct s_path	*next;
 } t_pth;
 
 typedef struct	s_path_sen

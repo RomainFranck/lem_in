@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 12:28:20 2014 Romain Franck
-** Last update Tue Mar 25 12:28:20 2014 Romain Franck
+** Last update Wed Mar 26 02:20:08 2014 Galleg_a
 */
 
 #include <stdlib.h>
@@ -19,6 +19,33 @@ int	my_strlen(char *s, int i)
 {
   return (*(s + i) && *(s + i) != '-' && *(s + i) != 10 && *(s + i) != 32
 	  ? 1 + my_strlen(s + 1, i) : 1);
+}
+
+/* cette version marche aussi
+
+int
+my_strlen
+(char *str) {
+return (str[0] != '\0') ? (my_strlen(str + 1) + 1) : (0);
+}
+C'etait juste pour strlen du deuxième nom ou qu'il s'arrete au '-'
+ */
+
+int	my_strncmp(const char *s1, const char *s2, unsigned n)
+{
+  int	i;
+  int	value;
+
+  if (!n)
+    return (0);
+  i ^= i;
+  value ^= value;
+  while (--n && !value && s1[i] && s2[i])
+    {
+      value = s1[i] ^ s2[i];
+      i++;
+    }
+  return (s1[i] - s2[i]);
 }
 
 char	*my_strdup(char *s, int i)
