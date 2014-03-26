@@ -5,11 +5,24 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Wed Mar 26 02:35:46 2014 Galleg_a
+** Last update Wed Mar 26 02:49:37 2014 Galleg_a
 */
 
 #include <stdlib.h>
 #include "lemin.h"
+
+int	valid_node_input(char *line)
+{
+  int	i;
+  int	space;
+
+  i = -1;
+  space ^= space;
+  while (line[++i])
+    if (line[i] == ' ')
+      space++;
+  return ((space == 2) ? 1 : 0);
+}
 
 void	comment(t_frm *farm, char *line)
 {
@@ -46,10 +59,10 @@ int	create_node_list(t_frm *farm)
 	comment(farm, line);
       else
 	{
-	  if (0/*ligne ne contient pas 3 elements*/)
-	    kill = 0;
-	  else
+	  if (valid_node_input(line))
 	    add_node_to_list(farm, 0, line);
+	  else
+	    kill = 0;
 	}
       free(line);
     }
@@ -69,6 +82,7 @@ int	main()
   farm.first = 0;
   farm.size = 0;
   farm.ants = 0;
+  /*--------*/
   create_node_list(&farm);
   return (0);
 }
