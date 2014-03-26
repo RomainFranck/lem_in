@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 12:21:39 2014 Romain Franck
-** Last update Wed Mar 26 02:10:49 2014 root
+** Last update Wed Mar 26 02:29:01 2014 root
 */
 
 #include <stdlib.h>
@@ -31,8 +31,6 @@ t_nd	*add_node_to_list(t_frm *farm, int type, char *line)
 void	put_in_empty_node_list(t_frm *farm, t_nd *maillon, char *line)
 {
   (void) line;
-  maillon->prev = maillon;
-  maillon->next = maillon;
   farm->first = maillon;
   farm->last = maillon;
   farm->size += 1;
@@ -44,11 +42,10 @@ void	put_in_node_list(t_frm *farm, t_nd *maillon, char *line)
 {
   (void) line;
   maillon->prev = farm->last;
-  maillon->next = farm->first;
+  maillon->next = 0;
   farm->last->next = maillon;
   farm->last = maillon;
   farm->size += 1;
-  farm->first->prev = farm->last;
 }
 
 t_nd	*nd_find(t_nd *f, char *name)

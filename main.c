@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Wed Mar 26 02:13:59 2014 Galleg_a
+** Last update Wed Mar 26 02:35:46 2014 Galleg_a
 */
 
 #include <stdlib.h>
@@ -53,7 +53,7 @@ int	create_node_list(t_frm *farm)
 	}
       free(line);
     }
-  while ((line = getnextline(1)) != 0)
+  while (my_strcmp(line, "")/*(line = getnextline(1)) != 0*/)
     free(line); /*gestion des liaisons*/
   return (0);
 }
@@ -62,6 +62,13 @@ int	main()
 {
   t_frm	farm;
 
+  /* memset */
+  farm.start = 0;
+  farm.exit = 0;
+  farm.last = 0;
+  farm.first = 0;
+  farm.size = 0;
+  farm.ants = 0;
   create_node_list(&farm);
   return (0);
 }
