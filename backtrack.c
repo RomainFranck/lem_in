@@ -8,12 +8,17 @@
 ** Last update Tue Mar 25 22:15:52 2014 Romain Franck
 */
 
+#include "lemin.h"
+#include "nodes.h"
+
 void	bactrack(t_sen *sen, t_nd *room, t_pn *list)
 {
   t_pth	*ptr;
+  t_pth a;
   int	i;
 
-  list->last->next = room;
+  a.nd = room;
+  list->last->next = a;
   list->last = NULL;
   if (sen->last == room)
     {
@@ -25,6 +30,12 @@ void	bactrack(t_sen *sen, t_nd *room, t_pn *list)
 	  ptr = ptr->prev;
 	}
     }
-  ptr = list->last;
-  while (ptr != list->first)
+  i = 0;
+  while (room->tab[i] != NULL)
+    {
+      if (!pth_find(list, room->tab[i]))
+	bactrack(room->tab[i]);
+      i++;
+    }
+  return ;
 }

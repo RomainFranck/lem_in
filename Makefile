@@ -11,7 +11,8 @@
 SRC =		main.c \
 		nodes.c \
 		str.c \
-		getnextline.c
+		getnextline.c \
+		bactrack.c
 
 OBJ =		$(SRC:.c=.o)
 
