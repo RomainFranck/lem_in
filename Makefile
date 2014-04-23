@@ -12,6 +12,7 @@ SRC =		main.c \
 		nodes.c \
 		str.c \
 		getnextline.c \
+		backtrack.c \
 	        getnbr.c
 
 OBJ =		$(SRC:.c=.o)

@@ -3,6 +3,8 @@
 
 #include "nodes.h"
 
+# define MIN(x, y)	(x < y ? x == -1 ? y : x : y == -1 ? x : y)
+
 /*-------------[getnbr.c]------------*/
 int	is_alphaz(char c);
 int	my_getnbr_aux(int nbr, char *str, int minus);
