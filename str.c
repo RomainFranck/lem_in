@@ -21,16 +21,6 @@ int	my_strlen(char *s, int i)
 	  ? 1 + my_strlen(s + 1, i) : 1);
 }
 
-/* cette version marche aussi
-
-int
-my_strlen
-(char *str) {
-return (str[0] != '\0') ? (my_strlen(str + 1) + 1) : (0);
-}
-C'etait juste pour strlen du deuxième nom ou qu'il s'arrete au '-'
- */
-
 int	my_strncmp(const char *s1, const char *s2, unsigned n)
 {
   int	i;

@@ -57,14 +57,17 @@ t_nd	*nd_find(t_nd *f, char *name)
     ptr = ptr->next;
   return (ptr);
 }
-/* ne compile pas unknown type t_tn *
-t_nd	*nd_find_tab(t_tn *f, char *name)
-{
-  int	i;
 
-  i = 0;
-  while (my_strcmp(f[i]->name, name) == 0 && f[i + 1] != NULL)
-    i++;
-  return (f[i]);
+int	pth_find(t_pn *list, t_nd *room)
+{
+  t_pth	*ptr;
+
+  ptr = list->first;
+  while (ptr != list->last)
+    {
+      if (ptr->node == room)
+	return (1);
+      ptr = ptr->next;
+    }
+  return (0);
 }
-*/

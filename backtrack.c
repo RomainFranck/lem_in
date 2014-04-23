@@ -35,8 +35,10 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
   while (room->links[i] != NULL)
     {
       if (!pth_find(list, room->links[i]))
-	bactrack(room->links[i]);
+	backtrack(sen, room->links[i], list);
       i++;
     }
   return ;
 }
+
+void	move(
