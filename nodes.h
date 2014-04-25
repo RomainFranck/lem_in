@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 11:09:02 2014 Romain Franck
-** Last update Wed Mar 26 03:20:52 2014 Galleg_a
+** Last update Wed Apr 23 17:31:52 2014 Galleg_a
 */
 
 #ifndef NODES_H_
@@ -17,7 +17,8 @@ typedef struct	s_node
   char		*name;
   int		weight;
   char		full;
-  struct s_node	*links;
+  char		**link;
+  /*struct s_node	*links;*/
   struct s_node	*next;
 } t_nd;
 
