@@ -35,8 +35,29 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
   while (room->links[i] != NULL)
     {
       if (!pth_find(list, room->links[i]))
-	bactrack(room->links[i]);
+	backtrack(sen, room->links[i], list);
       i++;
     }
   return ;
+}
+
+void	move(t_ant *ant)
+{
+  int	i;
+  t_nd	*n;
+
+  i = 0;
+  n = ant->node->links[i];
+  while (ant->node->links[i] != NULL)
+    {
+      n = (ant->node->links[i]->weight < n->weight ? ant->node->links[i] : n);
+      i++;
+    }
+  n->full++;
+  if (n->full == 1)
+    {
+      ant->node->full--;
+      ant->node = n;
+      printf("P%d-%s", ant->number, n->name);
+    }
 }

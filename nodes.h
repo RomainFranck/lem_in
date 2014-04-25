@@ -17,8 +17,12 @@ typedef struct	s_node
   char		*name;
   int		weight;
   char		full;
+<<<<<<< HEAD
   char		**link;
   /*struct s_node	*links;*/
+=======
+  struct s_node	**links;
+>>>>>>> 490ea63400d3cdee162eb2d3e04ccc7a7d7ad9bb
   struct s_node	*next;
 } t_nd;
 
@@ -31,24 +35,6 @@ typedef struct	s_farm_sen
   unsigned	size;
   int		ants;
 } t_frm;
-
-typedef struct	s_path
-{
-  struct s_path	*prev;
-  t_nd		*node;
-  struct s_path	*next;
-} t_pth;
-
-typedef struct	s_path_sen
-{
-  t_pth		*first;
-  t_pth		*last;
-  int		size;
-} t_pn;
-
-/*
-** Définir l'emplacement de la fourmi selon le node ou la fourmi ?
-*/
 
 typedef struct	s_ant
 {
