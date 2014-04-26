@@ -34,6 +34,7 @@ typedef struct	s_farm_sen
 
 typedef struct	s_ant
 {
+  int		number;
   t_nd		*node;
   struct s_ant	*next;
 } t_ant;
