@@ -38,4 +38,17 @@ typedef struct	s_ant
   struct s_ant	*next;
 } t_ant;
 
+typedef struct	s_path
+{
+  struct s_path	*prev;
+  t_nd		*node;
+  struct s_path	*next;
+} t_pth;
+
+typedef struct	s_psen
+{
+  t_pth	*first;
+  t_pth	*last;
+} t_pn;
+
 #endif

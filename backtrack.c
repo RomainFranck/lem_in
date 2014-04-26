@@ -9,18 +9,30 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "lemin.h"
 #include "nodes.h"
+
+void	init(t_frm *sen)
+{
+  t_pn	list;
+  t_pth	a;
+
+  a.node = sen->start;
+  list.first = &a;
+  list.last = &a;
+  backtrack(sen, sen->start, &list);
+}
 
 void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
 {
   t_pth	*ptr;
-  t_pth a;
+  t_pth	a;
   int	i;
 
   a.node = room;
   list->last->next = &a;
-  list->last = NULL;
+  list->last = &a;
   if (sen->last == room)
     {
       ptr = list->last;
@@ -31,17 +43,15 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
 	  ptr = ptr->prev;
 	}
     }
-  i = 0;
-  while (room->links[i] != NULL)
-    {
-      if (!pth_find(list, room->links[i]))
-	backtrack(sen, room->links[i], list);
-      i++;
-    }
+  i = -1;
+  while (room->links[++i] != NULL)
+    if (!pth_find(list, room->links[i]))
+      backtrack(sen, room->links[i], list);
+  list->last = list->last->prev;
   return ;
 }
 
-void	move(t_ant *ant)
+int	move(t_ant *ant)
 {
   int	i;
   t_nd	*n;
@@ -58,6 +68,22 @@ void	move(t_ant *ant)
     {
       ant->node->full--;
       ant->node = n;
-      printf("P%d-%s", ant->number, n->name);
+      printf("P%d-%s", ant->number, n->name); /*--my_printf--*/
     }
+  return (1);
+}
+
+int	antAction(t_ant *ant, int (*Action)(t_ant*))
+{
+  int	i;
+  t_ant	*ptr;
+
+  i = 0;
+  ptr = ant;
+  while (ptr != NULL)
+    {
+      i |= Action(ptr);
+      ptr = ptr->next;
+    }
+  return (i);
 }
