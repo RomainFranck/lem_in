@@ -17,12 +17,8 @@ typedef struct	s_node
   char		*name;
   int		weight;
   char		full;
-<<<<<<< HEAD
   char		**link;
-  /*struct s_node	*links;*/
-=======
   struct s_node	**links;
->>>>>>> 490ea63400d3cdee162eb2d3e04ccc7a7d7ad9bb
   struct s_node	*next;
 } t_nd;
 
