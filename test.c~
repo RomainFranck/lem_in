@@ -1,0 +1,42 @@
+/*
+** test.c for  in /home/cengiz_c/lem_in
+** 
+** Made by Cengiz
+** Login   <cengiz_c@epitech.net>
+** 
+** Started on  Wed Apr 23 17:23:23 2014 Cengiz
+** Last update Wed Apr 23 17:42:03 2014 Cengiz
+*/
+
+#include "nodes.h"
+#include <stdlib.h>
+
+int		create_bug(t_nd *position, int i)
+{
+  t_ant		*bug;
+
+  bug = malloc(sizeof(t_ant));
+  bug->number = i;
+  bug->node = position;
+  printf("%d\n", bug->number);
+}
+
+int		my_create(int nb, t_nd *position)
+{
+  int		i;
+
+  i = 0;
+  while (i < nb)
+    {
+      create_bug(position, i);
+      i++;
+    }
+}
+
+int		main()
+{
+  t_nd		*position;
+
+  position = malloc(sizeof(t_nd));
+  my_create(3, position);
+}
