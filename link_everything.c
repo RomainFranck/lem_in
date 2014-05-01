@@ -5,7 +5,7 @@
 ** Login   <galleg_a@epitech.eu>
 ** 
 ** Started on  Thu May  1 03:04:44 2014 Galleg_a
-** Last update Thu May  1 07:50:21 2014 Galleg_a
+** Last update Thu May  1 16:09:42 2014 Galleg_a
 */
 
 #include <stdio.h>
@@ -36,9 +36,12 @@ int	get_real_size(char *name, t_sln *links)
   while (i < links->size)
     {
       j = get_beginning(tmp->link);
-      if (!my_strcmp(name, &(tmp->link[j])))
+      if (!my_strcmp_no_troll(name, &(tmp->link[j])))
 	{
-	  printf("%s ->%s\n", name, &(tmp->link[j]));
+	  if ()
+	    {
+	    }
+	  printf("name : %s -> %s\n", name, &(tmp->link[j]));
 	}
       i++;
       tmp = tmp->next;

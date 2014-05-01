@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 12:21:39 2014 Romain Franck
-** Last update Thu May  1 05:21:01 2014 root
+** Last update Thu May  1 15:41:58 2014 root
 */
 
 #include <stdlib.h>
@@ -89,6 +89,8 @@ void	put_in_empty_node_list(t_frm *farm, t_nd *maillon, char *line)
   farm->last = maillon;
   farm->size += 1;
   maillon->name = get_name(line);
+  maillon->weight = 0;
+  maillon->full = 0;
   maillon->next = 0;
   maillon->prev = 0;
 }
@@ -98,6 +100,8 @@ void	put_in_node_list(t_frm *farm, t_nd *maillon, char *line)
   maillon->name = get_name(line);
   maillon->prev = farm->last;
   maillon->next = 0;
+  maillon->weight = 0;
+  maillon->full = 0;
   farm->last->next = maillon;
   farm->last = maillon;
   farm->size += 1;
