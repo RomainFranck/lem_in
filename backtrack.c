@@ -50,16 +50,16 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
   int	i;
 
   path(list, room);
-  if (sen->last == room)
+  if (room == sen->exit)
     {
       ptr = list->last;
       i = 0;
       while (ptr != list->first)
 	{
-	  printf("%d, %d\n", ptr->node->weight, i);
-	  ptr->node->weight = WEIGHT(ptr->node->weight, i++);
+	  ptr->node->weight = WEIGHT(ptr->node->weight, i);
 	  ptr = ptr->prev;
-}
+	  i++;
+	}
     }
   i = -1;
   while (room->links[++i] != NULL)
@@ -69,29 +69,43 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
   return ;
 }
 
+void	cleaningWoman(t_frm *sen)
+{
+  t_nd	*ptr;
+
+  ptr = sen->first;
+  while (ptr != sen->last)
+    {
+      ptr->full = 0;
+      ptr = ptr->next;
+    }
+  ptr->full = 0;
+}
+
 int	move(t_ant *ant)
 {
   int	i;
   t_nd	*n;
 
   i = 0;
+  if (ant->node->weight == 0)
+    return (0);
   n = ant->node->links[i];
   while (ant->node->links[i] != NULL)
     {
+      /* printf("%s\n", ant->node->links[i]->name); */
       n = (ant->node->links[i]->weight < n->weight ? ant->node->links[i] : n);
       i++;
     }
-  n->full++;
-  if (n->full == 1)
+  n->full += 1;
+  if (n->full == 1 && n->weight <= ant->node->weight)
     {
-      printf("P%d-%s", ant->number, ant->node->name); /*--my_printf--*/
-      ant->node->full--;
+      ant->node->full = 0;
       ant->node = n;
       printf("P%d-%s", ant->number, n->name); /*--my_printf--*/
+      return (1);
     }
-  if (ant->node->weight == 0)
-    return (0);
-  return (1);
+  return (2);
 }
 
 int	antAction(t_ant *ant, int (*Action)(t_ant*))
@@ -101,15 +115,14 @@ int	antAction(t_ant *ant, int (*Action)(t_ant*))
 
   i = 0;
   ptr = ant;
-  i |= Action(ptr);
-  ptr = ptr->next;
   while (ptr != NULL)
     {
-      printf(" ");
+      if (i == 1)
+	printf(" ");
       i |= Action(ptr);
       ptr = ptr->next;
     }
-  sleep(1);
-  printf("\n");
+  if (i != 0)
+    printf("\n");
   return (i);
 }

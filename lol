@@ -1,8 +1,10 @@
-1
+3
 ##start
-0 0 169
-1 42 76
+start 0 169
+mid 42 76
 ##end
-2 38 188
-0-1
-1-2
+end 38 188
+start-mid
+mid-start
+mid-end
+end-mid

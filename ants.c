@@ -36,7 +36,8 @@ t_ant	*antCreate(t_ant *queen, t_nd *position, int i)
   ptr = queen;
   while (ptr->next != NULL)
     ptr = ptr->next;
-  ant = malloc(sizeof(t_ant));
+  if ((ant = malloc(sizeof(t_ant))) == NULL)
+    exit(0);
   ant->number = i;
   ant->node = position;
   ant->next = NULL;

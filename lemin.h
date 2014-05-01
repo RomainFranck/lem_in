@@ -14,6 +14,7 @@ void	init(t_frm *sen);
 void	backtrack(t_frm *sen, t_nd *room, t_pn *list);
 int	move(t_ant *ant);
 int	antAction(t_ant *ant, int (*Action)(t_ant*));
+void	cleaningWoman(t_frm*);
 /*--------------------------------------*/
 
 /*-------------[create_tree.c]------------*/

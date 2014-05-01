@@ -19,7 +19,7 @@ typedef struct	s_node
   struct s_node	*prev;
   char		*name;
   int		weight;
-  char		full;
+  int		full;
   struct s_node	**links;
   struct s_node	*next;
 } t_nd;
