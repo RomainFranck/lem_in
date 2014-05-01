@@ -73,5 +73,6 @@ char	*my_strdup(char *s, int i);
 /*--------------------------------*/
 
 int	epur_tree(t_frm *farm);
+int	link_everything(t_frm *farm, t_sln *links);
 
 #endif

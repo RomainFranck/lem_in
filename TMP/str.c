@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 12:28:20 2014 Romain Franck
-** Last update Wed Apr 30 23:34:27 2014 root
+** Last update Thu May  1 04:00:54 2014 root
 */
 
 #include <stdlib.h>
@@ -42,12 +42,17 @@ char	*my_strdup_no_troll(char *src)
 
 int	my_strcmp_no_troll(char *s1, char *s2)
 {
-  while (!(*s1 - *s2) && *s1 && *s2)
+  char	*s1_ptr;
+  char	*s2_ptr;
+
+  s1_ptr = s1;
+  s2_ptr = s2;
+  while (!(*s1_ptr - *s2_ptr) && *s1_ptr && *s2_ptr)
     {
-      s1++;
-      s2++;
+      s1_ptr++;
+      s2_ptr++;
     }
-  return (*s1 - *s2);
+  return (*s1_ptr - *s2_ptr);
 }
 
 int	my_strncmp(const char *s1, const char *s2, unsigned n)

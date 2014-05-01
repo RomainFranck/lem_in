@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Thu May  1 02:56:17 2014 Galleg_a
+** Last update Thu May  1 05:37:56 2014 Galleg_a
 */
 
 #include <stdio.h>
@@ -19,6 +19,7 @@ int	create_tree(t_frm *farm, t_sln *links)
       printf("Failed to create tree\n");
       return (EXIT_FAILURE);
     }
+  link_everything(farm, links);
   epur_tree(farm);
   return (0);
 }
@@ -88,21 +89,17 @@ void	add_valid_node(t_frm *farm, char *line, int *kill, int type)
 
 void	comment(t_frm *farm, char *line, int *kill)
 {
-  char	*data;
-
   if (my_strncmp(line, "##start", 7))
     {
       free(line);
-      if ((data = getnextline(0)) != 0)
-	add_valid_node(farm, data, kill, 1);
-      free(data);
+      if ((line = getnextline(0)) != 0)
+	add_valid_node(farm, line, kill, 1);
     }
   else if (my_strncmp(line, "##end", 5))
     {
       free(line);
-      if ((data = getnextline(0)) != 0)
-	add_valid_node(farm, data, kill, 2);
-      free(data);
+      if ((line = getnextline(0)) != 0)
+	add_valid_node(farm, line, kill, 2);
     }
 }
 
