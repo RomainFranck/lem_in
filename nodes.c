@@ -5,9 +5,10 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 12:21:39 2014 Romain Franck
-** Last update Thu May  1 15:41:58 2014 root
+** Last update Thu May  1 17:03:22 2014 root
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "lemin.h"
 
@@ -50,6 +51,7 @@ t_nd	*add_node_to_list(t_frm *farm, int type, char *line)
 
   if ((maillon = malloc(sizeof(t_nd))) == 0)
     return (NULL);
+  printf("%d | %s\n", type, line);
   if (type == 1)
     farm->start = maillon;
   else if (type == 2)

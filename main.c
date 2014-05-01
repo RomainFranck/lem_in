@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Thu May  1 05:41:41 2014 Galleg_a
+** Last update Thu May  1 17:05:15 2014 root
 */
 
 #include <stdio.h>
@@ -19,7 +19,7 @@ int	create_tree(t_frm *farm, t_sln *links)
       printf("Failed to create tree\n");
       return (EXIT_FAILURE);
     }
-  link_everything(farm, links);
+  /*link_everything(farm, links);*/
   epur_tree(farm);
   return (0);
 }
@@ -93,13 +93,13 @@ void	comment(t_frm *farm, char *line, int *kill)
     {
       free(line);
       if ((line = getnextline(0)) != 0)
-	add_valid_node(farm, line, kill, 1);
+	add_valid_node(farm, line, kill, 2);
     }
   else if (my_strncmp(line, "##end", 5))
     {
       free(line);
       if ((line = getnextline(0)) != 0)
-	add_valid_node(farm, line, kill, 2);
+	add_valid_node(farm, line, kill, 1);
     }
 }
 
