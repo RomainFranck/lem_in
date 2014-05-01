@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 11:09:02 2014 Romain Franck
-** Last update Wed Apr 30 23:19:59 2014 root
+** Last update Thu May  1 02:46:54 2014 root
 */
 
 #ifndef NODES_H_

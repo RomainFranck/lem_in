@@ -5,13 +5,11 @@
 ** Login   <galleg_a@epitech.eu>
 ** 
 ** Started on  Wed Apr 30 13:45:56 2014 Galleg_a
-** Last update Thu May  1 02:18:02 2014 Galleg_a
+** Last update Thu May  1 02:27:57 2014 Galleg_a
 */
 
 #include <stdlib.h>
 #include "lemin.h"
-
-#include <stdio.h>
 
 int    	count_nodes(char *name, t_sln *links)
 {

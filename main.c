@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Thu May  1 02:21:10 2014 Galleg_a
+** Last update Thu May  1 02:56:17 2014 Galleg_a
 */
 
 #include <stdio.h>
@@ -64,7 +64,7 @@ void	manage_link(char *line, t_sln *links, int *kill)
   if (line[0] == '#')
     {
       free(line);
-      line = getnextline(1);
+      line = getnextline(0);
     }
   if (!valid_link_input(line))
     *kill = 0;
@@ -93,14 +93,14 @@ void	comment(t_frm *farm, char *line, int *kill)
   if (my_strncmp(line, "##start", 7))
     {
       free(line);
-      if ((data = getnextline(1)) != 0)
+      if ((data = getnextline(0)) != 0)
 	add_valid_node(farm, data, kill, 1);
       free(data);
     }
   else if (my_strncmp(line, "##end", 5))
     {
       free(line);
-      if ((data = getnextline(1)) != 0)
+      if ((data = getnextline(0)) != 0)
 	add_valid_node(farm, data, kill, 2);
       free(data);
     }
@@ -122,11 +122,11 @@ int	create_node_list(t_frm *farm, t_sln *links)
   int 	kill;
 
   kill = 1;
-  if ((line = getnextline(1)) != 0)
+  if ((line = getnextline(0)) != 0)
     if ((farm->ants = my_getnbr(line)) < 1)
       return (printf("Ant number must be > 0 (input : %d)\n", farm->ants));
   free(line);
-  while (kill > 0 && (line = getnextline(1)) != 0)
+  while (kill > 0 && (line = getnextline(0)) != 0)
     manage_rooms(line, &kill, farm);
   if (valid_link_input(line))
     {
@@ -134,7 +134,7 @@ int	create_node_list(t_frm *farm, t_sln *links)
       free(line);
     }
   kill = 1;
-  while (kill && (line = getnextline(1)) != 0)
+  while (kill && (line = getnextline(0)) != 0)
     manage_link(line, links, &kill);
   return (0);
 }
