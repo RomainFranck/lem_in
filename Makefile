@@ -5,7 +5,7 @@
 ## Login   <franck_r@epitech.net>
 ## 
 ## Started on  Fri Dec  6 18:59:15 2013 Romain Franck
-## Last update Thu May  1 03:05:45 2014 root
+## Last update Thu May  1 06:11:20 2014 root
 ##
 
 SRC =		main.c \
@@ -24,7 +24,7 @@ NAME =		lem_in
 
 CC =		gcc
 
-CFLAGS =	-Wall -Werror -Wextra -pedantic -g
+CFLAGS =	-W -Wall -Werror -Wextra -pedantic -ansi -g
 
 all: $(NAME)
 

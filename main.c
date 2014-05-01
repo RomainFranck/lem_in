@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Thu May  1 05:37:56 2014 Galleg_a
+** Last update Thu May  1 05:41:41 2014 Galleg_a
 */
 
 #include <stdio.h>
@@ -109,8 +109,6 @@ void	manage_rooms(char *line, int *kill, t_frm *farm)
     comment(farm, line, kill);
   else
     add_valid_node(farm, line, kill, 0);
-  if (*kill > 0)
-    free(line);
 }
 
 int	create_node_list(t_frm *farm, t_sln *links)
