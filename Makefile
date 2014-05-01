@@ -16,7 +16,8 @@ SRC =		main.c \
 		ants.c \
 		create_tree.c \
 	  	epur_tree.c \
-		link_everything.c
+		link_everything.c \
+		backtrack.c
 
 OBJ =		$(SRC:.c=.o)
 

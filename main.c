@@ -138,6 +138,7 @@ int	main()
 {
   t_sln	links;
   t_frm	farm;
+  t_ant	*queen;
 
   /* memset */
   farm.start = 0;
@@ -152,5 +153,8 @@ int	main()
     return (EXIT_FAILURE);
   if (create_tree(&farm, &links) == EXIT_FAILURE)
     return (EXIT_FAILURE);
+  init(&farm);
+  queen = releaseTheAnts(farm.ants, farm.start);
+  while (antAction(queen, move));
   return (0);
 }
