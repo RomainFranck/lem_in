@@ -5,12 +5,12 @@
 ** Login   <galleg_a@epitech.eu>
 ** 
 ** Started on  Thu May  1 03:04:44 2014 Galleg_a
-** Last update Thu May  1 16:59:58 2014 Galleg_a
+** Last update Thu May  1 17:17:53 2014 Galleg_a
 */
 
 #include <stdio.h>
 #include "lemin.h"
-/*
+
 int	get_beginning(char *link)
 {
   int	i;
@@ -22,8 +22,21 @@ int	get_beginning(char *link)
   return (i);
 }
 
-int	check_already_exist(t_lnk *link, char *name, int j)
+int	check_already_exist(t_lnk *link, char *name, int j, t_frm *farm)
 {
+  t_nd	*tmp;
+  unsigned	i;
+
+  i = 0;
+  (void) j;
+  (void) name;
+  (void) tmp;
+  (void) link;
+  tmp = farm->first;
+  while (i < farm->size)
+    {
+      i++;
+    }
   return (0);
 }
 
@@ -51,7 +64,7 @@ int	get_real_size(char *name, t_sln *links, t_frm *farm)
     }
   return (0);
 }
-*/
+
 int		link_everything(t_frm *farm, t_sln *links)
 {
   unsigned	i;

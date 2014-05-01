@@ -5,7 +5,7 @@
 ** Login   <galleg_a@epitech.eu>
 ** 
 ** Started on  Wed Apr 30 13:45:56 2014 Galleg_a
-** Last update Thu May  1 07:35:22 2014 Galleg_a
+** Last update Thu May  1 17:25:47 2014 Galleg_a
 */
 
 #include <stdio.h>
@@ -67,7 +67,9 @@ int	fill_node_links(int size, t_nd *r, t_sln *links, t_frm *farm)
 	{
 	  if (!my_strncmp(r->name, tmp->link, my_strlen_no_troll(r->name)))
 	    {
-	      if ((r->links[i] = find_node(farm, tmp->link)) == NULL)
+	      if ((r->links[i] = find_node(farm, tmp->link +
+					   my_strlen_no_troll(r->name) + 1))
+		  == NULL)
 		return (EXIT_FAILURE);
 	      i++;
 	    }
