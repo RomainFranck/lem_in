@@ -12,6 +12,7 @@
 # define NODES_H_
 
 # define MIN(x, y)	(x < y ? x == -1 ? y : x : y == -1 ? x : y)
+# define WEIGHT(x, y)	(x < y ? x == 0 ? y : x : y == 0 ? x : y)
 
 typedef struct	s_node
 {

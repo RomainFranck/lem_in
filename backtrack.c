@@ -40,7 +40,8 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
       i = 0;
       while (ptr != list->first)
 	{
-	  ptr->node->weight = MIN(ptr->node->weight, i++);
+	  printf("%d, %d\n", ptr->node->weight, i);
+	  ptr->node->weight = WEIGHT(ptr->node->weight, i++);
 	  ptr = ptr->prev;
 	}
     }
