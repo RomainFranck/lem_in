@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "lemin.h"
 #include "nodes.h"
 
@@ -80,10 +81,14 @@ int	antAction(t_ant *ant, int (*Action)(t_ant*))
 
   i = 0;
   ptr = ant;
+  i |= Action(ptr);
   while (ptr != NULL)
     {
+      printf(" ");
       i |= Action(ptr);
       ptr = ptr->next;
     }
+  sleep(1);
+  printf("\n");
   return (i);
 }
