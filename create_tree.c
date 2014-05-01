@@ -5,7 +5,7 @@
 ** Login   <galleg_a@epitech.eu>
 ** 
 ** Started on  Wed Apr 30 13:45:56 2014 Galleg_a
-** Last update Thu May  1 06:10:40 2014 Galleg_a
+** Last update Thu May  1 07:01:17 2014 Galleg_a
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,19 +77,24 @@ int	fill_node_links(int size, t_nd *r, t_sln *links, t_frm *farm)
   return (0);
 }
 
-void	del_link_in_full(t_sln *links, t_lnk *tmp, t_lnk *link)
+void	del_link_in_full(t_sln *links, t_lnk *link)
 {
+  t_lnk	*save;
+
+  save = NULL;
   if (link == links->first)
     {
-      links->first = tmp;
-      tmp->prev = 0;
-      tmp->next = link->next;
+      save = link->next->next;
+      links->first = link->next;
+      links->first->prev = 0;
+      links->first->next = save;
     }
   else if (link == links->last)
     {
-      tmp->next = 0;
-      tmp->prev = link->prev;
-      links->last = tmp;
+      save = link->prev->prev;
+      links->last = link->prev;
+      links->last->next = 0;
+      links->last->prev = save;
     }
   else
     {
@@ -105,7 +110,7 @@ t_lnk	*r_maillon(t_lnk *link, t_sln *links, int *next)
   if (links->size > 1)
     {
       tmp = link->next;
-      del_link_in_full(links, tmp, link);
+      del_link_in_full(links, link);
     }
   else
     {
