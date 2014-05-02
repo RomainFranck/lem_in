@@ -158,6 +158,7 @@ int	main()
     return (EXIT_FAILURE);
   init(&farm);
   queen = releaseTheAnts(farm.ants, farm.start);
+  printf("%s %s\n", farm.start->name, farm.exit->name);
   while (antAction(queen, move))
     cleaningWoman(&farm);
   /* smashTheAnts(queen); */

@@ -57,9 +57,11 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
       while (ptr != list->first)
 	{
 	  ptr->node->weight = WEIGHT(ptr->node->weight, i);
+	  printf("Node : %s is %d ", ptr->node->name, ptr->node->weight);
 	  ptr = ptr->prev;
 	  i++;
 	}
+      printf("\n");
     }
   i = -1;
   while (room->links[++i] != NULL)
@@ -86,6 +88,7 @@ int	move(t_ant *ant)
 {
   int	i;
   t_nd	*n;
+  t_nd	*p;
 
   i = 0;
   if (ant->node->weight == 0)
@@ -93,19 +96,19 @@ int	move(t_ant *ant)
   n = ant->node->links[i];
   while (ant->node->links[i] != NULL)
     {
-      /* printf("%s\n", ant->node->links[i]->name); */
-      n = (ant->node->links[i]->weight < n->weight ? ant->node->links[i] : n);
+      p = ant->node->links[i];
+      n = (NODE(p) < NODE(n) ? p : n);
       i++;
     }
   n->full += 1;
-  if (n->full == 1 && n->weight <= ant->node->weight)
+  if ((n->weight == 0) || (n->full == 1 && NODE(n) <= ant->node->weight))
     {
       ant->node->full = 0;
       ant->node = n;
-      printf("P%d-%s", ant->number, n->name); /*--my_printf--*/
+      printf("P%d-%s ", ant->number, n->name);
       return (1);
     }
-  return (2);
+  return (1);
 }
 
 int	antAction(t_ant *ant, int (*Action)(t_ant*))
@@ -117,8 +120,6 @@ int	antAction(t_ant *ant, int (*Action)(t_ant*))
   ptr = ant;
   while (ptr != NULL)
     {
-      if (i == 1)
-	printf(" ");
       i |= Action(ptr);
       ptr = ptr->next;
     }
