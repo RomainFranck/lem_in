@@ -57,11 +57,9 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
       while (ptr != list->first)
 	{
 	  ptr->node->weight = WEIGHT(ptr->node->weight, i);
-	  printf("Node : %s is %d ", ptr->node->name, ptr->node->weight);
 	  ptr = ptr->prev;
 	  i++;
 	}
-      printf("\n");
     }
   i = -1;
   while (room->links[++i] != NULL)
