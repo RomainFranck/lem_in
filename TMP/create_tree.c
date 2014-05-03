@@ -5,8 +5,9 @@
 ** Login   <galleg_a@epitech.eu>
 ** 
 ** Started on  Wed Apr 30 13:45:56 2014 Galleg_a
-** Last update Thu May  1 05:39:11 2014 Galleg_a
+** Last update Fri May  2 15:49:08 2014 Galleg_a
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "lemin.h"
@@ -22,11 +23,8 @@ int    	count_nodes(char *name, t_sln *links)
   tmp = links->first;
   while (i < links->size)
     {
-      if (!my_strncmp(name, tmp->link, my_strlen_no_troll(name)))
-	{
-	  printf("name : %s - link : %s\n", name, tmp->link);
-	  size++;
-	}
+      if (my_strcmp_no_troll(name, tmp->first) == 0)
+	size++;
       tmp = tmp->next;
       i++;
     }
@@ -42,7 +40,7 @@ t_nd		*find_node(t_frm *farm, char *name)
   tmp = farm->first;
   while (i < farm->size)
     {
-      if (!my_strncmp(name, tmp->name, my_strlen_no_troll(tmp->name)))
+      if (my_strcmp_no_troll(name, tmp->name) == 0)
 	return (tmp);
       tmp = tmp->next;
       i++;
@@ -63,9 +61,9 @@ int	fill_node_links(int size, t_nd *r, t_sln *links, t_frm *farm)
       tmp = links->first;
       while (j < links->size)
 	{
-	  if (!my_strncmp(r->name, tmp->link, my_strlen_no_troll(r->name)))
+	  if (my_strcmp_no_troll(r->name, tmp->first) == 0)
 	    {
-	      if ((r->links[i] = find_node(farm, tmp->link)) == NULL)
+	      if ((r->links[i] = find_node(farm, tmp->second)) == NULL)
 		return (EXIT_FAILURE);
 	      i++;
 	    }
@@ -77,27 +75,45 @@ int	fill_node_links(int size, t_nd *r, t_sln *links, t_frm *farm)
   return (0);
 }
 
-t_lnk	*r_maillon(t_lnk *link, t_sln *links, int *next)
+void	del_link_in_full(t_sln *links, t_lnk *link)
 {
-  t_lnk	*tmp;
+  t_lnk	*save;
 
-  tmp = link->next;
+  save = NULL;
   if (link == links->first)
     {
-      links->first = tmp;
-      tmp->prev = 0;
-      tmp->next = link->next;
+      save = link->next->next;
+      links->first = link->next;
+      links->first->prev = 0;
+      links->first->next = save;
     }
   else if (link == links->last)
     {
-      tmp->next = 0;
-      tmp->prev = link->prev;
-      links->last = tmp;
+      save = link->prev->prev;
+      links->last = link->prev;
+      links->last->next = 0;
+      links->last->prev = save;
     }
   else
     {
       link->prev->next = link->next;
       link->next->prev = link->prev;
+    }
+}
+
+t_lnk	*r_maillon(t_lnk *link, t_sln *links, int *next)
+{
+  t_lnk	*tmp;
+
+  if (links->size > 1)
+    {
+      tmp = link->next;
+      del_link_in_full(links, link);
+    }
+  else
+    {
+      printf("No valid link were found\n");
+      return (NULL);
     }
   free(link);
   links->size--;
@@ -113,16 +129,16 @@ void	del_doublons(t_sln *links)
   int	i;
   int	j;
 
-  i = 0;
+  i = -1;
   tmp1 = links->first;
-  while (i < links->size)
+  while (++i < links->size)
     {
       j = 0;
       tmp2 = links->first;
       while (j < links->size)
 	{
 	  next = 1;
-	  if (!my_strcmp_no_troll(tmp1->link, tmp2->link) && tmp1 != tmp2)
+	  if (my_strcmp_no_troll(tmp1->link, tmp2->link) == 0 && tmp1 != tmp2)
 	    tmp2 = r_maillon(tmp2, links, &next);
 	  if (next)
 	    {
@@ -130,8 +146,49 @@ void	del_doublons(t_sln *links)
 	      tmp2 = tmp2->next;
 	    }
 	}
-      i++;
       tmp1 = tmp1->next;
+    }
+}
+
+int	is_useless(char *link)
+{
+  int	j;
+  int	i;
+
+  i = 0;
+  j = 0;
+  while (link[i] && link[i] != '-')
+    i++;
+  i++;
+  while (link[j] == '-' && link[i])
+    {
+      i++;
+      j++;
+    }
+  if (link[j] - link[i] == 0)
+    return (1);
+  return (0);
+}
+
+void	del_useless(t_sln *links)
+{
+  int	i;
+  int	next;
+  t_lnk	*tmp;
+
+  i = 0;
+  next = 1;
+  tmp = links->first;
+  while (i < links->size)
+    {
+      next = 1;
+      if (is_useless(tmp->link))
+	tmp = r_maillon(tmp, links, &next);
+      if (next)
+	{
+	  i++;
+	  tmp = tmp->next;
+	}
     }
 }
 
@@ -143,15 +200,16 @@ int		init_tree(t_frm *farm, t_sln *links)
 
   i = 0;
   tmpn = farm->first;
+  del_doublons(links);
+  del_useless(links);
   while (i < farm->size)
     {
-      del_doublons(links);
       size = count_nodes(tmpn->name, links);
-      printf("size : %d\n", size);
       if ((tmpn->links = malloc(sizeof(t_nd *) * (size + 1))) == NULL)
 	return (EXIT_FAILURE);
       if (fill_node_links(size, tmpn, links, farm) == EXIT_FAILURE)
 	return (EXIT_FAILURE);
+      tmpn->nb_link = size;
       i++;
       tmpn = tmpn->next;
     }

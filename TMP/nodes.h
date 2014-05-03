@@ -5,13 +5,14 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 11:09:02 2014 Romain Franck
-** Last update Thu May  1 02:46:54 2014 root
+** Last update Fri May  2 15:41:52 2014 root
 */
 
 #ifndef NODES_H_
 # define NODES_H_
 
 # define MIN(x, y)	(x < y ? x == -1 ? y : x : y == -1 ? x : y)
+# define WEIGHT(x, y)	(x < y ? x == 0 ? y : x : y == 0 ? x : y)
 
 typedef struct	s_node
 {
@@ -19,6 +20,7 @@ typedef struct	s_node
   char		*name;
   int		weight;
   char		full;
+  int		nb_link;
   struct s_node	**links;
   struct s_node	*next;
 } t_nd;
@@ -58,6 +60,8 @@ typedef struct		s_lnkstr
   struct s_lnkstr	*prev;
   struct s_lnkstr	*next;
   char			*link;
+  char			*first;
+  char			*second;
 } t_lnk;
 
 typedef struct	s_lnksen

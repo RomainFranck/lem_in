@@ -5,64 +5,74 @@
 ** Login   <galleg_a@epitech.eu>
 ** 
 ** Started on  Thu May  1 03:04:44 2014 Galleg_a
-** Last update Thu May  1 17:17:53 2014 Galleg_a
+** Last update Sat May  3 07:28:25 2014 Galleg_a
 */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "lemin.h"
 
-int	get_beginning(char *link)
+int	check_already_exist(t_nd *node, t_lnk *link)
 {
   int	i;
 
   i = 0;
-  while (link[i] && link[i] != '-')
-    i++;
-  i++;
-  return (i);
-}
-
-int	check_already_exist(t_lnk *link, char *name, int j, t_frm *farm)
-{
-  t_nd	*tmp;
-  unsigned	i;
-
-  i = 0;
-  (void) j;
-  (void) name;
-  (void) tmp;
-  (void) link;
-  tmp = farm->first;
-  while (i < farm->size)
+  while (i < node->nb_link)
     {
+      if (my_strcmp_no_troll(link->first, node->links[i]->name) == 0)
+	return (1);
       i++;
     }
   return (0);
 }
 
-int	get_real_size(char *name, t_sln *links, t_frm *farm)
+int	count_other_nodes(char *name, t_nd *node, t_sln *links)
 {
   int	i;
-  int	j;
+  t_lnk	*link;
   int	size;
-  t_lnk	*tmp;
 
   i = 0;
   size = 0;
-  tmp = links->first;
+  link = links->first;
   while (i < links->size)
     {
-      j = get_beginning(tmp->link);
-      if (!my_strcmp_no_troll(name, &(tmp->link[j])))
-	{
-	  if (!check_already_exist(tmp, name, j, farm))
-	    size++;
-	  printf("name : %s -> %s\n", name, &(tmp->link[j]));
-	}
+      if (my_strcmp_no_troll(name, link->second) == 0 &&
+	  !check_already_exist(node, link))
+	size++;
+      link = link->next;
       i++;
+    }
+  return (size);
+}
+
+t_nd	**fill_new_links(t_nd *node, t_sln *links, t_nd **new_links, t_frm *farm)
+{
+  t_lnk	*tmp;
+  int	j;
+  int	i;
+
+  i = 0;
+  tmp = links->first;
+  while (i < node->nb_link)
+    {
+      new_links[i] = node->links[i];
+      i++;
+    }
+  j = -1;
+  while (++j < links->size)
+    {
+      if (my_strcmp_no_troll(node->name, tmp->second) == 0 &&
+	  !check_already_exist(node, tmp))
+	{
+	  if ((new_links[i] = find_node(farm, tmp->first)) == NULL)
+	    return (NULL);
+	  i++;
+	}
       tmp = tmp->next;
     }
-  return (0);
+  new_links[i] = NULL;
+  return (new_links);
 }
 
 int		link_everything(t_frm *farm, t_sln *links)
@@ -72,14 +82,19 @@ int		link_everything(t_frm *farm, t_sln *links)
   t_nd		*tmp;
   t_nd		**new_links;
 
-  (void) size;
-  (void) new_links;
   i = 0;
   size = 0;
   tmp = farm->first;
   while (i < farm->size)
     {
-      size = get_real_size(tmp->name, links, farm);
+      size = count_other_nodes(tmp->name, tmp, links);
+      if ((new_links = malloc(sizeof(t_nd *) *
+			      (size + tmp->nb_link + 1))) == NULL)
+	return (EXIT_FAILURE);
+      if ((new_links = fill_new_links(tmp, links, new_links, farm)) == NULL)
+	return (EXIT_FAILURE);
+      tmp->links = new_links;
+      tmp->nb_link += size;
       i++;
       tmp = tmp->next;
     }
