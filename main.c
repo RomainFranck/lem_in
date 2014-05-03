@@ -35,12 +35,15 @@ int	valid_link_input(char *line)
 {
   int	i;
 
-  i = -1;
-  while (is_alphanum(line[++i]) && line[i]);
+  i = 0;
+  while (line[i] && is_alphanum(line[i]))
+    i++;
   if (line[i] == '-')
     {
-      while (is_alphanum(line[++i]) && line[i]);
-      if (!line[i])
+      i++;
+      while (is_alphanum(line[i]) && line[i])
+	i++;
+      if (line[i] == 0)
 	return (1);
     }
   printf("Invalid link input\n");
@@ -64,7 +67,7 @@ void	manage_link(char *line, t_sln *links, int *kill)
 {
   if (line[0] == '#')
     {
-      free(line);
+      /* free(line); */
       line = getnextline(0);
     }
   if (!valid_link_input(line))
@@ -155,6 +158,9 @@ int	main()
     return (EXIT_FAILURE);
   init(&farm);
   queen = releaseTheAnts(farm.ants, farm.start);
-  while (antAction(queen, move));
+  printf("%s %s\n", farm.start->name, farm.exit->name);
+  while (antAction(queen, move))
+    cleaningWoman(&farm);
+  /* smashTheAnts(queen); */
   return (0);
 }
