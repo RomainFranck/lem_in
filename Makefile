@@ -5,7 +5,7 @@
 ## Login   <franck_r@epitech.net>
 ## 
 ## Started on  Fri Dec  6 18:59:15 2013 Romain Franck
-## Last update Thu May  1 17:06:21 2014 root
+## Last update Sat May  3 07:35:43 2014 root
 ##
 
 SRC =		main.c \
@@ -15,7 +15,6 @@ SRC =		main.c \
 	        getnbr.c \
 		ants.c \
 		create_tree.c \
-	  	epur_tree.c \
 		link_everything.c \
 		backtrack.c
 

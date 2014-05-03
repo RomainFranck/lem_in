@@ -5,11 +5,10 @@
 ** Login   <galleg_a@epitech.eu>
 ** 
 ** Started on  Wed Apr 30 13:45:56 2014 Galleg_a
-** Last update Thu May  1 17:25:47 2014 Galleg_a
+** Last update Fri May  2 15:49:08 2014 Galleg_a
 */
 
 #include <stdio.h>
-
 #include <stdlib.h>
 #include "lemin.h"
 
@@ -24,11 +23,8 @@ int    	count_nodes(char *name, t_sln *links)
   tmp = links->first;
   while (i < links->size)
     {
-      if (!my_strncmp(name, tmp->link, my_strlen_no_troll(name)))
-	{
-	  printf("%s - %s\n", name, tmp->link);
+      if (my_strcmp_no_troll(name, tmp->first) == 0)
 	size++;
-	}
       tmp = tmp->next;
       i++;
     }
@@ -44,7 +40,7 @@ t_nd		*find_node(t_frm *farm, char *name)
   tmp = farm->first;
   while (i < farm->size)
     {
-      if (!my_strncmp(name, tmp->name, my_strlen_no_troll(tmp->name)))
+      if (my_strcmp_no_troll(name, tmp->name) == 0)
 	return (tmp);
       tmp = tmp->next;
       i++;
@@ -65,11 +61,9 @@ int	fill_node_links(int size, t_nd *r, t_sln *links, t_frm *farm)
       tmp = links->first;
       while (j < links->size)
 	{
-	  if (!my_strncmp(r->name, tmp->link, my_strlen_no_troll(r->name)))
+	  if (my_strcmp_no_troll(r->name, tmp->first) == 0)
 	    {
-	      if ((r->links[i] = find_node(farm, tmp->link +
-					   my_strlen_no_troll(r->name) + 1))
-		  == NULL)
+	      if ((r->links[i] = find_node(farm, tmp->second)) == NULL)
 		return (EXIT_FAILURE);
 	      i++;
 	    }
@@ -144,7 +138,7 @@ void	del_doublons(t_sln *links)
       while (j < links->size)
 	{
 	  next = 1;
-	  if (!my_strcmp_no_troll(tmp1->link, tmp2->link) && tmp1 != tmp2)
+	  if (my_strcmp_no_troll(tmp1->link, tmp2->link) == 0 && tmp1 != tmp2)
 	    tmp2 = r_maillon(tmp2, links, &next);
 	  if (next)
 	    {
@@ -215,6 +209,7 @@ int		init_tree(t_frm *farm, t_sln *links)
 	return (EXIT_FAILURE);
       if (fill_node_links(size, tmpn, links, farm) == EXIT_FAILURE)
 	return (EXIT_FAILURE);
+      tmpn->nb_link = size;
       i++;
       tmpn = tmpn->next;
     }

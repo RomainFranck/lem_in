@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Thu May  1 17:10:16 2014 root
+** Last update Sat May  3 07:35:50 2014 root
 */
 
 #include <stdio.h>
@@ -19,8 +19,8 @@ int	create_tree(t_frm *farm, t_sln *links)
       printf("Failed to create tree\n");
       return (EXIT_FAILURE);
     }
-  /*link_everything(farm, links);*/
-  epur_tree(farm);
+  if (link_everything(farm, links) == EXIT_FAILURE)
+    return (EXIT_FAILURE);
   return (0);
 }
 

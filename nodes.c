@@ -5,11 +5,24 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 12:21:39 2014 Romain Franck
-** Last update Thu May  1 17:10:50 2014 root
+** Last update Fri May  2 15:08:11 2014 root
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "lemin.h"
+
+void	get_links(char *line, t_lnk *maillon)
+{
+  int	i;
+
+  i = 0;
+  while (line[i] != '-' && line[i])
+    i++;
+  maillon->first = my_strdup_no_troll(line);
+  maillon->first[i] = 0;
+  maillon->second = my_strdup_no_troll(line + i + 1);
+}
 
 void	in_empty_link_list(t_sln *links, t_lnk *maillon, char *line)
 {
@@ -17,6 +30,7 @@ void	in_empty_link_list(t_sln *links, t_lnk *maillon, char *line)
   links->last = maillon;
   links->size += 1;
   maillon->link = my_strdup_no_troll(line);
+  get_links(line, maillon);
   maillon->next = 0;
   maillon->prev = 0;
 }
@@ -26,6 +40,7 @@ void	in_link_list(t_sln *links, t_lnk *maillon, char *line)
   maillon->prev = links->last;
   maillon->next = 0;
   maillon->link = my_strdup_no_troll(line);
+  get_links(line, maillon);
   links->last->next = maillon;
   links->last = maillon;
   links->size += 1;

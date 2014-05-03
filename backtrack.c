@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 22:15:52 2014 Romain Franck
-** Last update Tue Mar 25 22:15:52 2014 Romain Franck
+** Last update Fri May  2 14:19:52 2014 root
 */
 
 #include <stdlib.h>
@@ -56,7 +56,7 @@ void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
       i = 0;
       while (ptr != list->first)
 	{
-	  printf("%d, %d\n", ptr->node->weight, i);
+	  /*printf("%d, %d\n", ptr->node->weight, i);*/
 	  ptr->node->weight = WEIGHT(ptr->node->weight, i++);
 	  ptr = ptr->prev;
 }

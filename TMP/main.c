@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Thu May  1 05:37:56 2014 Galleg_a
+** Last update Sat May  3 07:35:50 2014 root
 */
 
 #include <stdio.h>
@@ -19,8 +19,8 @@ int	create_tree(t_frm *farm, t_sln *links)
       printf("Failed to create tree\n");
       return (EXIT_FAILURE);
     }
-  link_everything(farm, links);
-  epur_tree(farm);
+  if (link_everything(farm, links) == EXIT_FAILURE)
+    return (EXIT_FAILURE);
   return (0);
 }
 
@@ -93,13 +93,13 @@ void	comment(t_frm *farm, char *line, int *kill)
     {
       free(line);
       if ((line = getnextline(0)) != 0)
-	add_valid_node(farm, line, kill, 1);
+	add_valid_node(farm, line, kill, 2);
     }
   else if (my_strncmp(line, "##end", 5))
     {
       free(line);
       if ((line = getnextline(0)) != 0)
-	add_valid_node(farm, line, kill, 2);
+	add_valid_node(farm, line, kill, 1);
     }
 }
 
@@ -109,8 +109,6 @@ void	manage_rooms(char *line, int *kill, t_frm *farm)
     comment(farm, line, kill);
   else
     add_valid_node(farm, line, kill, 0);
-  if (*kill > 0)
-    free(line);
 }
 
 int	create_node_list(t_frm *farm, t_sln *links)
@@ -140,6 +138,7 @@ int	main()
 {
   t_sln	links;
   t_frm	farm;
+  t_ant	*queen;
 
   /* memset */
   farm.start = 0;
@@ -154,5 +153,8 @@ int	main()
     return (EXIT_FAILURE);
   if (create_tree(&farm, &links) == EXIT_FAILURE)
     return (EXIT_FAILURE);
+  init(&farm);
+  queen = releaseTheAnts(farm.ants, farm.start);
+  while (antAction(queen, move));
   return (0);
 }

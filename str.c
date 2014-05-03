@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 12:28:20 2014 Romain Franck
-** Last update Thu May  1 04:00:54 2014 root
+** Last update Fri May  2 14:48:10 2014 root
 */
 
 #include <stdlib.h>
@@ -55,7 +55,7 @@ int	my_strcmp_no_troll(char *s1, char *s2)
   return (*s1_ptr - *s2_ptr);
 }
 
-int	my_strncmp(const char *s1, const char *s2, unsigned n)
+int	my_strncmp(const char *s1, const char *s2, int n)
 {
   int	i;
   int	value;
@@ -64,7 +64,7 @@ int	my_strncmp(const char *s1, const char *s2, unsigned n)
     return (0);
   i ^= i;
   value ^= value;
-  while (--n && !value && s1[i] && s2[i])
+  while (i < n && !value && s1[i] && s2[i])
     {
       value = s1[i] ^ s2[i];
       i++;

@@ -66,13 +66,13 @@ int	pth_find(t_pn *list, t_nd *room);
 int		my_strlen_no_troll(const char *s_ptr);
 char	*my_strdup_no_troll(char *src);
 int	my_strcmp_no_troll(char *s1, char *s2);
-int	my_strncmp(const char *s1, const char *s2, unsigned n);
+int	my_strncmp(const char *s1, const char *s2, int n);
 int	my_strcmp(char *a, char *b);
 int	my_strlen(char *s, int i);
 char	*my_strdup(char *s, int i);
 /*--------------------------------*/
 
-int	epur_tree(t_frm *farm);
+t_nd	*find_node(t_frm *farm, char *link);
 int	link_everything(t_frm *farm, t_sln *links);
 
 #endif
