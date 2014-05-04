@@ -14,18 +14,20 @@
 void	smashTheAnts(t_ant *queen)
 {
   t_ant	*ptr;
+  t_ant *tpr;
 
   ptr = queen;
   while (ptr->next != NULL)
     ptr = ptr->next;
-  while (ptr != queen)
+  while (tpr != queen)
     {
+      tpr = queen;
+      while (tpr->next != ptr)
+	tpr = tpr->next;
       free(ptr);
-      ptr = queen;
-      while (ptr->next != NULL)
-	ptr = ptr->next;
+      ptr = tpr;
     }
-  free(ptr);
+  free(tpr);
 }
 
 t_ant	*antCreate(t_ant *queen, t_nd *position, int i)

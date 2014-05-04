@@ -14,58 +14,19 @@
 #include "lemin.h"
 #include "nodes.h"
 
-void	init(t_frm *sen)
+void	backtrack(t_frm *sen, t_nd *room, int i)
 {
-  t_pn	list;
-  t_pth	a;
+  int	j;
 
-  a.node = sen->start;
-  list.first = &a;
-  list.last = &a;
-  backtrack(sen, sen->start, &list);
-}
-
-void	path(t_pn *list, t_nd *room)
-{
-  t_pth	*a;
-
-  if ((a = malloc(sizeof(t_pth))) == NULL)
-    exit(0);
-  a->node = room;
-  a->prev = list->last;
-  a->next = NULL;
-  list->last->next = a;
-  list->last = a;
-}
-
-void	noway(t_pn *list)
-{
-  list->last = list->last->prev;
-  free(list->last->next);
-  list->last->next = NULL;
-}
-void	backtrack(t_frm *sen, t_nd *room, t_pn *list)
-{
-  t_pth	*ptr;
-  int	i;
-
-  path(list, room);
-  if (room == sen->exit)
+  room->weight = i;
+  j = 0;
+  while (room->links[j] != NULL)
     {
-      ptr = list->last;
-      i = 0;
-      while (ptr != list->first)
-	{
-	  ptr->node->weight = WEIGHT(ptr->node->weight, i);
-	  ptr = ptr->prev;
-	  i++;
-	}
+      if ((room->links[j]->weight > i + 1) ||
+	  (room->links[j]->weight == 0 && room->links[j] != sen->exit))
+	backtrack(sen, room->links[j], i + 1);
+      j++;
     }
-  i = -1;
-  while (room->links[++i] != NULL)
-    if (!pth_find(list, room->links[i]))
-      backtrack(sen, room->links[i], list);
-  noway(list);
   return ;
 }
 
@@ -107,6 +68,12 @@ int	move(t_ant *ant)
       return (1);
     }
   return (1);
+}
+
+int	soil(t_ant *ant)
+{
+  ant->node->full = 1;
+  return (0);
 }
 
 int	antAction(t_ant *ant, int (*Action)(t_ant*))
