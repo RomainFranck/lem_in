@@ -17,9 +17,6 @@ void	get_links(char *line, t_lnk *maillon)
   int	i;
 
   i = 0;
-  /*if (line[0] == '#')
-    return ;*/
-  printf("%s\n", line);
   while (line[i] != '-' && line[i])
     i++;
   maillon->first = my_strdup_no_troll(line);

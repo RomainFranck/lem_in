@@ -53,6 +53,7 @@ char	*norme_get_next(int *i, char *str, int j)
 {
   (*i)++;
   str[j] = 0;
+  printf("%s\n", str);
   return (str);
 }
 
