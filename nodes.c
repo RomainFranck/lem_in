@@ -5,7 +5,7 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 12:21:39 2014 Romain Franck
-** Last update Sun May  4 17:04:57 2014 root
+** Last update Sun May  4 18:04:41 2014 root
 */
 
 #include <stdio.h>
@@ -17,9 +17,6 @@ void	get_links(char *line, t_lnk *maillon)
   int	i;
 
   i = 0;
-  /*if (line[0] == '#')
-    return ;*/
-  printf("%s\n", line);
   while (line[i] != '-' && line[i])
     i++;
   maillon->first = my_strdup_no_troll(line);

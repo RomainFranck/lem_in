@@ -14,18 +14,20 @@
 void	smashTheAnts(t_ant *queen)
 {
   t_ant	*ptr;
+  t_ant *tpr;
 
   ptr = queen;
   while (ptr->next != NULL)
     ptr = ptr->next;
-  while (ptr != queen)
+  while (tpr != queen)
     {
+      tpr = queen;
+      while (tpr->next != ptr)
+	tpr = tpr->next;
       free(ptr);
-      ptr = queen;
-      while (ptr->next != NULL)
-	ptr = ptr->next;
+      ptr = tpr;
     }
-  free(ptr);
+  free(tpr);
 }
 
 t_ant	*antCreate(t_ant *queen, t_nd *position, int i)
@@ -36,7 +38,8 @@ t_ant	*antCreate(t_ant *queen, t_nd *position, int i)
   ptr = queen;
   while (ptr->next != NULL)
     ptr = ptr->next;
-  ant = malloc(sizeof(t_ant));
+  if ((ant = malloc(sizeof(t_ant))) == NULL)
+    exit(0);
   ant->number = i;
   ant->node = position;
   ant->next = NULL;

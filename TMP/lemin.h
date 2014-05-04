@@ -11,16 +11,31 @@ t_ant	*releaseTheAnts(int nb, t_nd *position);
 
 /*-------------[backtrack.c]------------*/
 void	init(t_frm *sen);
-void	backtrack(t_frm *sen, t_nd *room, t_pn *list);
+void	path(t_pn *list, t_nd *room);
+void	noway(t_pn *list);
+void	backtrack2(t_frm *sen, t_nd *room, t_pn *list);
+void	backtrack(t_frm *sen, t_nd *room, int i);
+void	cleaningWoman(t_frm *sen);
 int	move(t_ant *ant);
+int	soil(t_ant *ant);
 int	antAction(t_ant *ant, int (*Action)(t_ant*));
 /*--------------------------------------*/
 
 /*-------------[create_tree.c]------------*/
-int	count_nodes(char *name, t_sln *links);
-int	fill_node_links(int size, t_nd *room, t_sln *links, t_frm *farm);
-int	init_tree(t_frm *farm, t_sln *links);
+int    	count_nodes(char *name, t_sln *links);
+t_nd		*find_node(t_frm *farm, char *name);
+int	fill_node_links(int size, t_nd *r, t_sln *links, t_frm *farm);
+void	del_link_in_full(t_sln *links, t_lnk *link);
+t_lnk	*r_maillon(t_lnk *link, t_sln *links, int *next);
+void	del_doublons(t_sln *links);
+int	is_useless(char *link);
+void	del_useless(t_sln *links);
+int		init_tree(t_frm *farm, t_sln *links);
 /*----------------------------------------*/
+
+/*-------------[epur_tree.c]------------*/
+int	epur_tree(t_frm *farm);
+/*--------------------------------------*/
 
 /*-------------[getnbr.c]------------*/
 int	is_alphaz(char c);
@@ -29,9 +44,18 @@ int	my_getnbr(char *str);
 /*-----------------------------------*/
 
 /*-------------[getnextline.c]------------*/
-char	*scat(char *a, char b);
-char	*getnextline(int fd);
+char	*my_strcpy(char *dest, char *src);
+char	*my_realloc(char *buff);
+char	*norme_get_next(int *i, char *str, int j);
+char		*getnextline(int fd);
 /*----------------------------------------*/
+
+/*-------------[link_everything.c]------------*/
+int	check_already_exist(t_nd *node, t_lnk *link);
+int	count_other_nodes(char *name, t_nd *node, t_sln *links);
+t_nd	**fill_new_links(t_nd *node, t_sln *links, t_nd **new_links, t_frm *farm);
+int		link_everything(t_frm *farm, t_sln *links);
+/*--------------------------------------------*/
 
 /*-------------[main.c]------------*/
 int	create_tree(t_frm *farm, t_sln *links);
@@ -52,10 +76,12 @@ char	*my_strcpy2(char *head, char *str, int i);
 /*--------------------------------------*/
 
 /*-------------[nodes.c]------------*/
+void	get_links(char *line, t_lnk *maillon);
 void	in_empty_link_list(t_sln *links, t_lnk *maillon, char *line);
 void	in_link_list(t_sln *links, t_lnk *maillon, char *line);
 t_lnk	*add_link_to_list(t_sln *links, char *line);
 t_nd	*add_node_to_list(t_frm *farm, int type, char *line);
+char	*get_name(char *line);
 void	put_in_empty_node_list(t_frm *farm, t_nd *maillon, char *line);
 void	put_in_node_list(t_frm *farm, t_nd *maillon, char *line);
 t_nd	*nd_find(t_nd *f, char *name);
@@ -71,8 +97,5 @@ int	my_strcmp(char *a, char *b);
 int	my_strlen(char *s, int i);
 char	*my_strdup(char *s, int i);
 /*--------------------------------*/
-
-t_nd	*find_node(t_frm *farm, char *link);
-int	link_everything(t_frm *farm, t_sln *links);
 
 #endif

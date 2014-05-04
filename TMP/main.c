@@ -5,10 +5,11 @@
 ** Login   <franck_r@epitech.net>
 **
 ** Started on  Tue Mar 25 14:22:50 2014 Romain Franck
-** Last update Sat May  3 07:35:50 2014 root
+** Last update Sun May  4 18:16:38 2014 root
 */
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include "lemin.h"
 
@@ -35,12 +36,19 @@ int	valid_link_input(char *line)
 {
   int	i;
 
-  i = -1;
-  while (is_alphanum(line[++i]) && line[i]);
+  i = 0;
+  if (line == 0)
+    return (1);
+  if (strncmp(line, "#", 1) == 0)
+    return (1);
+  while (line[i] && is_alphanum(line[i]))
+    i++;
   if (line[i] == '-')
     {
-      while (is_alphanum(line[++i]) && line[i]);
-      if (!line[i])
+      i++;
+      while (is_alphanum(line[i]) && line[i])
+	i++;
+      if (line[i] == 0)
 	return (1);
     }
   printf("Invalid link input\n");
@@ -54,6 +62,10 @@ int	valid_node_input(char *line)
 
   i = -1;
   space ^= space;
+  if (line == 0)
+    return (1);
+  if (strncmp(line, "#", 1) == 0)
+    return (1);
   while (line[++i] && (is_alphanum(line[i]) || line[i] == ' '))
     if (line[i] == ' ')
       space++;
@@ -62,7 +74,12 @@ int	valid_node_input(char *line)
 
 void	manage_link(char *line, t_sln *links, int *kill)
 {
-  if (line[0] == '#')
+  if (!valid_link_input(line) || line == 0)
+    {
+      *kill = 0;
+      return ;
+    }
+  if (strncmp(line, "#", 1) == 0)
     {
       free(line);
       line = getnextline(0);
@@ -82,22 +99,20 @@ void	add_valid_node(t_frm *farm, char *line, int *kill, int type)
     *kill = 0;
   else
     {
-      printf("Invalid room definition : (usage)-->[NAME X_POS Y_POS]\n"); /* my_printf */
+      printf("Invalid room definition : (usage)-->[NAME X_POS Y_POS]\n");
       *kill = 0;
     }
 }
 
 void	comment(t_frm *farm, char *line, int *kill)
 {
-  if (my_strncmp(line, "##start", 7))
+  if (strncmp(line, "##start", 7) == 0)
     {
-      free(line);
       if ((line = getnextline(0)) != 0)
 	add_valid_node(farm, line, kill, 2);
     }
-  else if (my_strncmp(line, "##end", 5))
+  else if (strncmp(line, "##end", 5) == 0)
     {
-      free(line);
       if ((line = getnextline(0)) != 0)
 	add_valid_node(farm, line, kill, 1);
     }
@@ -105,8 +120,21 @@ void	comment(t_frm *farm, char *line, int *kill)
 
 void	manage_rooms(char *line, int *kill, t_frm *farm)
 {
-  if (line[0] == '#')
-    comment(farm, line, kill);
+  if (!valid_node_input(line) || line == 0)
+    {
+      *kill = 0;
+      return ;
+    }
+  if (strncmp(line, "#", 1) == 0)
+    {
+      comment(farm, line, kill);
+      free(line);
+      while (strncmp(line, "#", 1) == '#' && (line = getnextline(0)) != 0)
+	{
+	  comment(farm, line, kill);
+	  free(line);
+	}
+    }
   else
     add_valid_node(farm, line, kill, 0);
 }
@@ -130,7 +158,10 @@ int	create_node_list(t_frm *farm, t_sln *links)
     }
   kill = 1;
   while (kill && (line = getnextline(0)) != 0)
-    manage_link(line, links, &kill);
+    {
+      if (line[0] != '#')
+	manage_link(line, links, &kill);
+    }
   return (0);
 }
 
@@ -140,21 +171,22 @@ int	main()
   t_frm	farm;
   t_ant	*queen;
 
-  /* memset */
-  farm.start = 0;
-  farm.exit = 0;
-  farm.last = 0;
-  farm.first = 0;
-  farm.size = 0;
-  farm.ants = 0;
-  /* ------ */
+  memset(&farm, 0, sizeof(t_frm));
+  memset(&links, 0, sizeof(t_sln));
   links.size = 0;
   if (create_node_list(&farm, &links) != 0)
     return (EXIT_FAILURE);
   if (create_tree(&farm, &links) == EXIT_FAILURE)
     return (EXIT_FAILURE);
-  init(&farm);
+  if (links.size <= 0 || farm.size <= 0)
+    return (EXIT_FAILURE);
+  backtrack(&farm, farm.exit, 0);
   queen = releaseTheAnts(farm.ants, farm.start);
-  while (antAction(queen, move));
+  while (antAction(queen, move))
+    {
+      cleaningWoman(&farm);
+      antAction(queen, soil);
+    }
+  smashTheAnts(queen);
   return (0);
 }

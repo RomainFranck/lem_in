@@ -13,14 +13,15 @@
 
 # define MIN(x, y)	(x < y ? x == -1 ? y : x : y == -1 ? x : y)
 # define WEIGHT(x, y)	(x < y ? x == 0 ? y : x : y == 0 ? x : y)
+#define NODE(x)	(x->weight == 0 ? 0 : x->weight + x->full)
 
 typedef struct	s_node
 {
   struct s_node	*prev;
   char		*name;
   int		weight;
-  char		full;
   int		nb_link;
+  int		full;
   struct s_node	**links;
   struct s_node	*next;
 } t_nd;
