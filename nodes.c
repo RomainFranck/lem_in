@@ -65,9 +65,9 @@ t_nd	*add_node_to_list(t_frm *farm, int type, char *line)
 
   if ((maillon = malloc(sizeof(t_nd))) == 0)
     return (NULL);
-  if (type == 1)
+  if (type == 2)
     farm->start = maillon;
-  else if (type == 2)
+  else if (type == 1)
     farm->exit = maillon;
   if (farm->size == 0)
     put_in_empty_node_list(farm, maillon, line);
